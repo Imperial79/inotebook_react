@@ -44,7 +44,7 @@ router.post(
   }
 );
 
-// ROUTE 3: update an existing note : PUT "localhost:5000/api/notes/updateNote/:id": Login Required
+// ROUTE 3: update an existing note : PUT "localhost:5000/api/notes/updateNote/id": Login Required
 router.put(
   "/updateNote/:id",
   fetchUser,
