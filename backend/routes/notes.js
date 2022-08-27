@@ -73,6 +73,7 @@ router.put(
       return res.status(404).send("Not Found");
     }
 
+    //  checking if the note belongs to the user
     if (note.user.toString() !== req.user.id) {
       return res.status(401).json("Not allowed");
     }
@@ -84,6 +85,39 @@ router.put(
     );
 
     res.json({ note });
+  }
+);
+
+// ROUTE 4: Delete an existing note : DELETE "localhost:5000/api/notes/deleteNote/id": Login Required
+router.delete(
+  "/deleteNote/:id",
+  fetchUser,
+  [
+    body("title", "Enter a valid title").isLength({ min: 3 }),
+    body("description", "Enter a valid description").isLength({ min: 5 }),
+  ],
+  async (req, res) => {
+    try {
+      //  Find the note to be deleted and delete it
+      let note = await Note.findById(req.params.id);
+      if (!note) {
+        return res.status(404).send("Not Found");
+      }
+
+      //  checking if the note belongs to the user
+      if (note.user.toString() !== req.user.id) {
+        return res.status(401).json("Not allowed");
+      }
+
+      //  Updating the note using note id
+      note = await Note.findByIdAndDelete(req.params.id);
+
+      //  Sending response
+      res.json({ Success: "Note has been deleted", note });
+    } catch (error) {
+      console.log(error.message);
+      res.status(500).send("Internal Server Error");
+    }
   }
 );
 
