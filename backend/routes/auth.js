@@ -4,9 +4,10 @@ const { body, validationResult } = require("express-validator"); //used for vali
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const JWT_SECRET = "thisisasecretkey";
+const fetchUser = require("../middleware/fetchUser");
 const router = express.Router();
 
-// create a user using : POST "/api/auth/createUser": No Login Required
+// ROUTE 1: create a user using : POST "/api/auth/createUser": No Login Required
 
 router.post(
   "/createUser",
@@ -57,7 +58,7 @@ router.post(
   }
 );
 
-// Authenticate a user using : POST "/api/auth/login": No Login Required
+// ROUTE 2: Authenticate a user using : POST "/api/auth/login": No Login Required
 
 router.post(
   "/login",
@@ -103,5 +104,18 @@ router.post(
     }
   }
 );
+
+// ROUTE 3: Get loggedIn user details : POST "/api/auth/getUser": Login Required
+
+router.post("/getUser", fetchUser, async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const user = await User.findById(userId).select("-password");
+    res.send(user);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Some error occurred");
+  }
+});
 
 module.exports = router;
