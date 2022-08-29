@@ -2,12 +2,6 @@ import NoteContext from "./NoteContext";
 import { useState } from "react";
 
 const NoteState = (props) => {
-  const s1 = {
-    name: "Avishek",
-    roll: 50,
-  };
-
-  const [state, setState] = useState(s1);
   const notesInitial = [
     {
       _id: "630a2880675137cf2c8adbd5",
