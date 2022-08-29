@@ -6,18 +6,10 @@ const NoteCard = (props) => {
     <div className="col-md-3">
       <div className="card my-3">
         <div className="card-header">
-          <strong>
-            {note.title} - Lorem ipsum dolor sit amet consectetur adipisicing
-            elit. Praesentium,
-          </strong>
+          <strong>{note.title}</strong>
         </div>
         <div className="card-body">
-          <p className="card-text">
-            {note.description} + Lorem ipsum dolor sit amet consectetur
-            adipisicing elit. Deleniti officiis labore aspernatur temporibus
-            cupiditate. Hic nobis adipisci deleniti culpa cum saepe consequuntur
-            veritatis perferendis ipsum! Facilis quidem eius eligendi dicta.
-          </p>
+          <p className="card-text">{note.description}</p>
           <div className="d-flex justify-content-between">
             <i className="fa-solid fa-eraser "></i>
             <i className="fa-solid fa-pen-to-square"></i>
