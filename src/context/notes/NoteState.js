@@ -64,24 +64,33 @@ const NoteState = (props) => {
   //  Add a note
   const addNote = (title, description, tag) => {
     //  TODO: API call
-    console.log("Adding a new note (from NoteState.js)");
+
     const note = {
-      _id: "630a2881675137cf2c8adbd9",
+      _id: Date.now(),
       user: "6308c6e1301ca2544905968b",
       title: title,
       description: description,
       tag: tag,
-      date: "2022-08-27T14:21:53.183Z",
+      date: Date.now(),
       __v: 0,
     };
     setNotes(notes.concat(note));
   };
 
   //  Delete a note
-  const deleteNote = (id) => {};
+  const deleteNote = (id) => {
+    //  TODO: API call
+    console.log("id - " + id);
+    const newNote = notes.filter((note) => {
+      return note._id !== id;
+    });
+    setNotes(newNote);
+  };
 
   //  Edit a note
-  const editNote = (id) => {};
+  const editNote = (id) => {
+    //  TODO: API call
+  };
 
   return (
     <NoteContext.Provider value={{ notes, addNote, deleteNote, editNote }}>
