@@ -1,11 +1,16 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import noteContext from "../context/notes/NoteContext";
 import NoteCard from "./NoteCard";
 import AddNote from "./AddNote";
 
 const Notes = () => {
   const context = useContext(noteContext);
-  const { notes, addNote } = context;
+  const { notes, getAllNotes } = context;
+
+  useEffect(() => {
+    getAllNotes();
+    //eslint-disable-next-line
+  }, []);
 
   return (
     <div className="row my-3">
