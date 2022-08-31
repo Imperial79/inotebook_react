@@ -19,7 +19,6 @@ const NoteState = (props) => {
       },
     });
     const json = await response.json();
-    // console.log(json);
 
     // setting fetched notes from server
     setNotes(json);
@@ -61,7 +60,6 @@ const NoteState = (props) => {
           "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjMwOGM2ZTEzMDFjYTI1NDQ5MDU5NjhiIn0sImlhdCI6MTY2MTU4MzYyNX0.kJJ1ZpQXsNjFMHf_LFe1va3zrbKQX24bgmh57BOdQHY",
       },
     });
-    console.log(response.json());
     // getAllNotes();
     const newNotes = notes.filter((note) => {
       return note._id !== id;
@@ -73,7 +71,7 @@ const NoteState = (props) => {
   const editNote = async (id, title, description, tag) => {
     //  API call
     const response = await fetch(`${host}/api/notes/updateNote/${id}`, {
-      method: "POST",
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
         "auth-token":
@@ -83,15 +81,17 @@ const NoteState = (props) => {
     });
     const json = response.json();
 
+    let newnotes = JSON.parse(JSON.stringify(notes));
     //Logic to edit in client
-    for (let index = 0; index < notes.length; index++) {
-      const element = notes[index];
-      if (element._id === id) {
-        element.title = title;
-        element.description = description;
-        element.tag = tag;
+    for (let index = 0; index < newnotes.length; index++) {
+      if (newnotes[index]._id === id) {
+        newnotes[index].title = title;
+        newnotes[index].description = description;
+        newnotes[index].tag = tag;
+        break;
       }
     }
+    setNotes(newnotes);
   };
 
   return (

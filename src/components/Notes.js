@@ -5,9 +5,12 @@ import AddNote from "./AddNote";
 
 const Notes = () => {
   const context = useContext(noteContext);
-  const { notes, getAllNotes } = context;
+  const { notes, getAllNotes, editNote } = context;
+  const ref = useRef(null);
+  const refClose = useRef(null);
 
   const [note, setNote] = useState({
+    id: "",
     etitle: "",
     edescription: "",
     etag: "default",
@@ -23,22 +26,23 @@ const Notes = () => {
 
     //  setting old note values to modal fields after the edit note button is clicked
     setNote({
+      id: currentNote._id,
       etitle: currentNote.title,
       edescription: currentNote.description,
       etag: currentNote.tag,
     });
   };
 
+  //  Modal UPDATE button click function
   const handleUpdateClick = (e) => {
     console.log("updating note", note);
-    //  so that page doesnot load
-    e.preventDefault();
+    editNote(note.id, note.etitle, note.edescription, note.etag);
+    refClose.current.click();
   };
+
   const onChange = (e) => {
     setNote({ ...note, [e.target.name]: e.target.value });
   };
-
-  const ref = useRef(null);
 
   return (
     <div className="row my-3">
@@ -122,6 +126,7 @@ const Notes = () => {
 
             <div className="modal-footer">
               <button
+                ref={refClose}
                 type="button"
                 className="btn btn-secondary"
                 data-bs-dismiss="modal"
