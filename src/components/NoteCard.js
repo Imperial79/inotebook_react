@@ -2,18 +2,18 @@ import React, { useContext, useState } from "react";
 import NoteContext from "../context/notes/NoteContext";
 
 const NoteCard = (props) => {
-  const { note } = props; //renaming the props as "note" for better understanding
+  const { note, editNote } = props;
 
   const context = useContext(NoteContext);
-  const { deleteNote, editNote } = context; //importing the deleteNote and editNote functions from noteContext
+  const { deleteNote } = context; //importing the deleteNote and editNote functions from noteContext
 
   //  --------------- NATIVE FUNCTIONS ------------------
   const handleDeleteClick = () => {
     deleteNote(note._id);
   };
 
-  const handleEditClick = () => {
-    editNote(note._id);
+  const handleEditNoteClick = () => {
+    editNote(note);
   };
 
   //  --------------- RETURN ------------------
@@ -26,11 +26,21 @@ const NoteCard = (props) => {
         </div>
         <div className="card-body">
           <p className="card-text">{note.description}</p>
+          <span
+            className="badge rounded-pill text-bg-primary"
+            style={{
+              marginBottom: "10px",
+              fontWeight: "400",
+              fontSize: "13px",
+            }}
+          >
+            {note.tag}
+          </span>
           <div className="d-flex justify-content-between">
             <i className="fa-solid fa-eraser" onClick={handleDeleteClick}></i>
             <i
               className="fa-solid fa-pen-to-square"
-              onClick={handleEditClick}
+              onClick={handleEditNoteClick}
             ></i>
           </div>
         </div>

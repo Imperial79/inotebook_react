@@ -61,13 +61,12 @@ const NoteState = (props) => {
           "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjMwOGM2ZTEzMDFjYTI1NDQ5MDU5NjhiIn0sImlhdCI6MTY2MTU4MzYyNX0.kJJ1ZpQXsNjFMHf_LFe1va3zrbKQX24bgmh57BOdQHY",
       },
     });
-    // const json = response.json();
-    getAllNotes();
-    // console.log(json);
-    // const newNote = notes.filter((note) => {
-    //   return note._id !== id;
-    // });
-    // setNotes(json);
+    console.log(response.json());
+    // getAllNotes();
+    const newNotes = notes.filter((note) => {
+      return note._id !== id;
+    });
+    setNotes(newNotes);
   };
 
   //  Edit a note
