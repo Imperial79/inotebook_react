@@ -15,6 +15,7 @@ const AddNote = () => {
     //  so that page doesnot load
     e.preventDefault();
     addNote(note.title, note.description, note.tag);
+    setNote({ title: "", description: "", tag: "" });
   };
 
   const onChange = (e) => {
@@ -22,7 +23,10 @@ const AddNote = () => {
   };
 
   return (
-    <div>
+    <div
+      className="card border-0"
+      style={{ padding: "40px 40px", backgroundColor: "#f7f7f7" }}
+    >
       <h1>+ Add a Note</h1>
       <form>
         <div className="mb-3">
@@ -31,9 +35,11 @@ const AddNote = () => {
           </label>
           <input
             type="text"
+            value={note.title}
             className="form-control"
             id="title"
             name="title"
+            required={true}
             aria-describedby="emailHelp"
             onChange={onChange}
           />
@@ -44,6 +50,7 @@ const AddNote = () => {
           </label>
           <input
             type="text"
+            value={note.description}
             name="description"
             className="form-control"
             id="description"
@@ -56,6 +63,7 @@ const AddNote = () => {
           </label>
           <input
             type="text"
+            value={note.tag}
             name="tag"
             className="form-control"
             id="tag"
@@ -64,6 +72,7 @@ const AddNote = () => {
         </div>
         <button
           type="submit"
+          disabled={note.title.length < 5 || note.description.length < 5}
           className="btn btn-primary"
           onClick={handleAddClick}
         >

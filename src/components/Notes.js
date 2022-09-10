@@ -136,6 +136,9 @@ const Notes = () => {
               <button
                 type="button"
                 className="btn btn-primary"
+                disabled={
+                  note.etitle.length < 5 || note.edescription.length < 5
+                }
                 onClick={handleUpdateClick}
               >
                 Update Note
@@ -145,11 +148,25 @@ const Notes = () => {
         </div>
       </div>
       <h3 className="my-3">Your Notes</h3>
-      {notes.map((note) => {
+      {notes.length === 0 ? (
+        <h1 style={{ color: "grey" }}>No Notes to display</h1>
+      ) : (
+        notes.map((note) => {
+          return (
+            <NoteCard
+              key={note._id}
+              editNote={handleEditNoteClick}
+              note={note}
+            />
+          );
+        })
+      )}
+
+      {/* {notes.map((note) => {
         return (
           <NoteCard key={note._id} editNote={handleEditNoteClick} note={note} />
         );
-      })}
+      })} */}
     </div>
   );
 };
