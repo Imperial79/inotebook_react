@@ -91,9 +91,12 @@ const Navbar = () => {
                 placeholder="Search"
                 aria-label="Search"
               />
-              <button className="btn btn-primary" type="submit">
-                Search
-              </button>
+              <Link className="btn btn-primary mx-1" to="/login" role="button">
+                Login
+              </Link>
+              <Link className="btn btn-primary mx-1" to="/signup" role="button">
+                Signup
+              </Link>
             </form>
           </div>
         </div>

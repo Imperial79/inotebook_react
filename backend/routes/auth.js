@@ -67,6 +67,7 @@ router.post(
     body("password", "Password cannot be blank").exists(),
   ],
   async (req, res) => {
+    let success;
     // If invalid input/error, return bad request
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -80,15 +81,17 @@ router.post(
       //checking for user to be null (when user doesnot exist)
       if (user == null) {
         console.log("user: ", user);
-        return res.status(400).json({ error: "User is null" });
+        success = false;
+        return res.status(400).json({ success, error: "User is null" });
       }
 
       const passCompare = await bcrypt.compare(password, user.password);
       console.log(passCompare);
       if (!passCompare) {
+        success = false;
         return res
           .status(400)
-          .json({ error: "Please try correct credentials" });
+          .json({ success, error: "Please try correct credentials" });
       }
 
       const data = {
@@ -97,10 +100,12 @@ router.post(
         },
       };
       const authToken = jwt.sign(data, JWT_SECRET);
-      res.json({ authToken });
+      success = true;
+      res.json({ success, authToken });
     } catch (err) {
+      success = false;
       console.error(err.message);
-      res.status(500).send("Some error occurred");
+      res.status(500).json({ success, error: "Some error occurred" });
     }
   }
 );

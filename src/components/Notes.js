@@ -13,7 +13,7 @@ const Notes = () => {
     id: "",
     etitle: "",
     edescription: "",
-    etag: "default",
+    etag: "",
   });
 
   useEffect(() => {
@@ -34,7 +34,7 @@ const Notes = () => {
   };
 
   //  Modal UPDATE button click function
-  const handleUpdateClick = (e) => {
+  const handleUpdateClick = () => {
     console.log("updating note", note);
     editNote(note.id, note.etitle, note.edescription, note.etag);
     refClose.current.click();
