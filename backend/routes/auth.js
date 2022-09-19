@@ -19,19 +19,22 @@ router.post(
     }),
   ],
   async (req, res) => {
+    let success = false;
     // If invalid input/error, return bad request
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+      success = false;
+      return res.status(400).json({ success: success, errors: errors.array() });
     }
     try {
       //check whether the user with this email already exist
       let user = await User.findOne({ email: req.body.email });
       console.log(user);
       if (user) {
+        success = false;
         return res
           .status(400)
-          .json({ error: "sorry a user with this email already exists" });
+          .json({ success: success, error: "sorry a user with this email already exists" });
       }
 
       //hashing the password with salt using bcryptJS to secure it
@@ -49,11 +52,12 @@ router.post(
         },
       };
       const authToken = jwt.sign(data, JWT_SECRET);
-
-      res.json({ authToken });
+      success = true;
+      res.json({ success, authToken });
     } catch (err) {
+      success = false;
       console.error(err.message);
-      res.status(500).send("Some error occurred");
+      res.status(500).json({ success: success, error: "Some error occurred" });
     }
   }
 );
