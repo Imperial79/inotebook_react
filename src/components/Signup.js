@@ -42,10 +42,11 @@ const Signup = (props) => {
 
 			props.showAlert('danger', json.error);
 		}
-	}
+	};
 
 	return (
 		<div className="container">
+			<h2 className="my-5">Sign Up to iNotebook</h2>
 			<form onSubmit={handleSubmit}>
 				{/* ------------NAME---------- */}
 				<div className="mb-3">

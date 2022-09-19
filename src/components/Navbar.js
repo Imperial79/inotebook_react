@@ -1,12 +1,19 @@
 import React, { useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+
 	let location = useLocation();
+	let navigate = useNavigate();
 
 	useEffect(() => {
 		console.log(location.pathname);
 	}, [location]);
+
+	const handleLogout = () => {
+		localStorage.removeItem("token");
+		navigate('/login');
+	};
 
 	return (
 		<>
@@ -77,25 +84,22 @@ const Navbar = () => {
                     </Link>
                   </li>
                 </ul>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link disabled">Disabled</Link>
-              </li> */}
+								</li>
+								<li className="nav-item">
+									<Link className="nav-link disabled">Disabled</Link>
+								</li> */}
 						</ul>
-						<form className="d-flex" role="search">
-							<input
-								className="form-control me-2"
-								type="search"
-								placeholder="Search"
-								aria-label="Search"
-							/>
-							<Link className="btn btn-primary mx-1" to="/login" role="button">
-								Login
-							</Link>
-							<Link className="btn btn-primary mx-1" to="/signup" role="button">
-								Signup
-							</Link>
-						</form>
+						{!localStorage.getItem("token") ?
+							<form className="d-flex">
+								<Link className="btn btn-primary mx-1" to="/login" role="button">
+									Login
+								</Link>
+								<Link className="btn btn-primary mx-1" to="/signup" role="button">
+									Signup
+								</Link>
+							</form>
+							: <button className="btn btn-danger" onClick={handleLogout}>Logout</button>}
+
 					</div>
 				</div>
 			</nav>
