@@ -10,10 +10,13 @@ const NoteCard = (props) => {
   //  --------------- NATIVE FUNCTIONS ------------------
   const handleDeleteClick = () => {
     deleteNote(note._id);
+    props.showAlert('success', 'Note Deleted');
   };
 
   const handleEditNoteClick = () => {
     editNote(note);
+    props.showAlert('success', 'Note Updated Successfully');
+
   };
 
   //  --------------- RETURN ------------------

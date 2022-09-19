@@ -3,7 +3,7 @@ import noteContext from "../context/notes/NoteContext";
 import NoteCard from "./NoteCard";
 import AddNote from "./AddNote";
 
-const Notes = () => {
+const Notes = (props) => {
   const context = useContext(noteContext);
   const { notes, getAllNotes, editNote } = context;
   const ref = useRef(null);
@@ -31,6 +31,7 @@ const Notes = () => {
       edescription: currentNote.description,
       etag: currentNote.tag,
     });
+    props.showAlert('success', 'Note updated Successfully');
   };
 
   //  Modal UPDATE button click function
@@ -157,6 +158,7 @@ const Notes = () => {
               key={note._id}
               editNote={handleEditNoteClick}
               note={note}
+              showAlert={props.showAlert}
             />
           );
         })
